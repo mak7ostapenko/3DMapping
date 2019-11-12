@@ -1,8 +1,9 @@
 '''Pytorch implementations of hyper-network modules.'''
 import torch
 import torch.nn as nn
-from pytorch_prototyping import pytorch_prototyping
+
 import functools
+from pytorch_prototyping import pytorch_prototyping
 
 
 def partialclass(cls, *args, **kwds):

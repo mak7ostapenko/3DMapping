@@ -1,8 +1,7 @@
-import numpy as np
 import torch
-
 from torch.nn import functional as F
-import util
+
+from src.utils import util
 
 
 def compute_normal_map(x_img, y_img, z, intrinsics):

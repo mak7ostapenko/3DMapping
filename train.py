@@ -1,14 +1,13 @@
+import os
 import configargparse
-import os, time, datetime
 
 import torch
-from torch.utils.tensorboard import SummaryWriter
 import numpy as np
-
-import dataio
 from torch.utils.data import DataLoader
-from srns import *
-import util
+from torch.utils.tensorboard import SummaryWriter
+
+from src.data import dataio
+from src.nn.models.srns import *
 
 p = configargparse.ArgumentParser()
 p.add('-c', '--config_filepath', required=False, is_config_file=True, help='Path to config file.')

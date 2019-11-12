@@ -1,12 +1,9 @@
-import geometry
-import torchvision
-import util
-
-from pytorch_prototyping import pytorch_prototyping
-
 import torch
+import torchvision
 from torch import nn
 
+from src.utils import geometry, util
+from pytorch_prototyping import pytorch_prototyping
 
 def init_recurrent_weights(self):
     for m in self.modules():

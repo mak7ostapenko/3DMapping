@@ -1,12 +1,11 @@
-import os, struct, math
-import numpy as np
-import torch
-from glob import glob
+import os
 
 import cv2
-import torch.nn.functional as F
-
+import torch
+import numpy as np
+from glob import glob
 import matplotlib.pyplot as plt
+
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 

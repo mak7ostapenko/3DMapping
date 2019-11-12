@@ -3,15 +3,13 @@ import torch.nn as nn
 import numpy as np
 
 import torchvision
-import util
 
 import skimage.measure
 from torch.nn import functional as F
 
 from pytorch_prototyping import pytorch_prototyping
-import custom_layers
-import geometry
-import hyperlayers
+from src.nn.layers import custom_layers, hyperlayers
+from src.utils import geometry, util
 
 
 class SRNsModel(nn.Module):

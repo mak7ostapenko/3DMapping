@@ -1,9 +1,11 @@
 import os
+
 import torch
 import numpy as np
 from glob import glob
-import data_util
-import util
+
+from src.utils import util
+from src.data import data_util
 
 
 def pick(list, item_idcs):
@@ -61,7 +63,7 @@ class SceneInstanceDataset():
 
     def __getitem__(self, idx):
         intrinsics, _, _, _ = util.parse_intrinsics(os.path.join(self.instance_dir, "intrinsics.txt"),
-                                                                  trgt_sidelength=self.img_sidelength)
+                                                    trgt_sidelength=self.img_sidelength)
         intrinsics = torch.Tensor(intrinsics).float()
 
         rgb = data_util.load_rgb(self.color_paths[idx], sidelength=self.img_sidelength)
