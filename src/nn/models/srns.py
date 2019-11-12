@@ -7,7 +7,7 @@ import torchvision
 import skimage.measure
 from torch.nn import functional as F
 
-from pytorch_prototyping import pytorch_prototyping
+from src.pytorch_prototyping import pytorch_prototyping
 from src.nn.layers import custom_layers, hyperlayers
 from src.utils import geometry, util
 

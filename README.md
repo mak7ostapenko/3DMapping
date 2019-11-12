@@ -5,6 +5,7 @@ Stages of the research:
 1. Scene Representation Networks:
 	- run models on the custom data;
 	- find correlation between FPS and performance; 
+	- play with feature size
 2. Another approach...
 3. Evaluation on a real world problem.
 
