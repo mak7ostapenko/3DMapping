@@ -6,6 +6,10 @@ Stages of the research:
 	- run models on the custom data;
 	- find correlation between FPS and performance; 
 	- play with feature size
+	- find drawbacks of model note them and try to deal
+	- increase speed
+	- decrease number of needed frames for scene rendering
+	- add noise to camera position and try to evaluate it
 2. Another approach...
 3. Evaluation on a real world problem.
 
