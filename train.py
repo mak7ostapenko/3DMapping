@@ -109,11 +109,11 @@ def train():
 
     if not opt.no_validation:
         assert (opt.val_root is not None), "No validation directory passed."
-
+        
         val_dataset = dataio.SceneClassDataset(root_dir=opt.val_root,
                                                max_num_instances=opt.max_num_instances_val,
                                                max_observations_per_instance=opt.max_num_observations_val,
-                                               img_sidelength=opt.img_sidelength,
+                                               img_sidelength=int(opt.img_sidelengths),
                                                samples_per_instance=1)
         collate_fn = val_dataset.collate_fn
         val_dataloader = DataLoader(val_dataset,
@@ -164,6 +164,7 @@ def train():
     print('Beginning training...')
     # This loop implements training with an increasing image sidelength.
     cum_max_steps = 0  # Tracks max_steps cumulatively over all image sidelengths.
+    
     for img_sidelength, max_steps, batch_size in zip(img_sidelengths, max_steps_per_sidelength,
                                                      batch_size_per_sidelength):
         print("\n" + "#" * 10)

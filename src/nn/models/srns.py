@@ -150,7 +150,7 @@ class SRNsModel(nn.Module):
 
             ssim = skimage.measure.compare_ssim(p, trgt, multichannel=True, data_range=1)
             psnr = skimage.measure.compare_psnr(p, trgt, data_range=1)
-
+            print('pser = ', psnr)
             psnrs.append(psnr)
             ssims.append(ssim)
 
