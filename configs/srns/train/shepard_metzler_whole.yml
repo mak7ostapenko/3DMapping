@@ -7,3 +7,7 @@ logging_root: logs/shepard/whole/
 img_sidelengths: 64
 batch_size_per_img_sidelength: 8 # This is for a GPU with 48 GB of memory. Adapt accordingly for your GPU memory.
 max_steps_per_img_sidelength: 352000
+
+
+
+
