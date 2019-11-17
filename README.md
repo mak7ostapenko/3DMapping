@@ -108,16 +108,15 @@ image_height image_width
 	Fx 0 Cx 0 Fy Cy 0 0 1
 	```
 
-	Do next steps:
-	
-	- Give permissions for execution execution:
-		```
-		chmod +x gen_intrinsics_for_each_sample.sh
-		``` 
-	- Execute script and get results:
-		```
-		$ ./gen_intrinsics_for_each_sample.sh dataset/root/dir
-		```
+Do next steps to get desired dataset fomat:
+1. Give permissions for execution execution:
+	```
+	chmod +x gen_intrinsics_for_each_sample.sh
+	``` 
+2. Execute script for each subset and get results:
+	```
+	$ ./gen_intrinsics_for_each_sample.sh dataset/root/dir
+	```
 
 ---
 

@@ -3,7 +3,6 @@
 dataset_dir=$1
 echo "Dataset root dir = $dataset_dir"
 
-
 for class_dir in $dataset_dir*
 do
     # for each instance rename photo dir to rgb
@@ -35,7 +34,6 @@ do
 	lined_intrinsics_matrix="${params_array[0]} 0.0 ${params_array[2]} 0.0 ${params_array[1]} ${params_array[3]} 0.0 0.0 1.0"
 	
 	echo $lined_intrinsics_matrix > $intrinsics_sample_path
-
     done
 done
 
