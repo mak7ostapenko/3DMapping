@@ -7,6 +7,7 @@ Results of research.
 **Target:** overfit model on small subset of data in order to see how behave losses, scores, gradients.
 
 **Results:**
+
 ![](images/shepard_overfit_res.png)
 ![](images/shepard_overfit_depth.png)
 ![](images/shepard_overfit_grads.png)
@@ -17,6 +18,7 @@ Results of research.
 **Target:** meet with problems during training models on large 3D dataset.
 
 **Results:**
+
 ![](images/shepard_whole_val_res.png)
 ![](images/shepard_whole_total_loss.png)
 ![](images/shepard_whole_val_psnr.png)
