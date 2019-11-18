@@ -171,7 +171,7 @@ Do next steps to get desired dataset fomat:
 
 ### 2. Shepard Metzler
 
-Data is in structures in right way. Enjoy.
+The data structure in the right way. Enjoy.
 
 ---
 
