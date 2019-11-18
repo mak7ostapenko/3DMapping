@@ -15,6 +15,19 @@ Stages of the research:
 3. Optimize networks and pipelines.
 3. Evaluation on a real world problem.
 
+**Implementation TODOs**:
+
+- [x] Edjast training process on some default dataset. 
+- [x] Implement research project structure.
+- [x] Write preprocessing script for the custom dataset. 
+- [x] Make possible to work with Fx and Fy. 
+- [ ] Make possible training with non square images. 
+- [ ] Revise test.py
+- [ ] Implement Epipolar attention mechanism. 
+- [ ] 
+- [ ] 
+
+
 ---
 
 ## Notes
@@ -33,7 +46,7 @@ without access to depth or geometry. SRNs do not discretize space, smoothly para
 ### 2. Geometry-Aware Neural Rendering
 [![Paper](http://img.shields.io/badge/paper-arxiv.1911.04554-B31B1B.svg)](https://arxiv.org/abs/1911.04554)
 
-....
+...
 
 ---
 

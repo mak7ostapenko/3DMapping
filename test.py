@@ -12,6 +12,10 @@ p.add('-c', '--config_filepath', required=False, is_config_file=True, help='Path
 # Note: in contrast to training, no multi-resolution!
 p.add_argument('--img_sidelength', type=int, default=128, required=False,
                help='Sidelength of test images.')
+p.add_argument('--non_symetric_camera_sensor', default=True,
+               help='Non symetric camera sensor.'
+                    'If sensor is not symetric then in data have to be Fx and Fy instead of one F.')
+
 
 p.add_argument('--data_root', required=True, help='Path to directory with training data.')
 p.add_argument('--logging_root', type=str, default='./logs',
@@ -56,7 +60,8 @@ def test():
                                        specific_observation_idcs=specific_observation_idcs,
                                        max_observations_per_instance=-1,
                                        samples_per_instance=1,
-                                       img_sidelength=opt.img_sidelength)
+                                       img_sidelength=opt.img_sidelength,
+                                       non_symetric_camera_sensor=opt.non_symetric_camera_sensor)
     dataset = DataLoader(dataset,
                          collate_fn=dataset.collate_fn,
                          batch_size=1,

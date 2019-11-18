@@ -22,10 +22,12 @@ class SceneInstanceDataset():
                  instance_dir,
                  specific_observation_idcs=None,  # For few-shot case: Can pick specific observations only
                  img_sidelength=None,
-                 num_images=-1):
+                 num_images=-1,
+                 non_symetric_camera_sensor=False):
         self.instance_idx = instance_idx
         self.img_sidelength = img_sidelength
         self.instance_dir = instance_dir
+        self.non_symetric_camera_sensor = non_symetric_camera_sensor
 
         color_dir = os.path.join(instance_dir, "rgb")
         pose_dir = os.path.join(instance_dir, "pose")
@@ -63,7 +65,8 @@ class SceneInstanceDataset():
 
     def __getitem__(self, idx):
         intrinsics, _, _, _ = util.parse_intrinsics(os.path.join(self.instance_dir, "intrinsics.txt"),
-                                                    trgt_sidelength=self.img_sidelength)
+                                                    trgt_sidelength=self.img_sidelength,
+                                                    non_symetric_camera_sensor=self.non_symetric_camera_sensor)
         intrinsics = torch.Tensor(intrinsics).float()
 
         rgb = data_util.load_rgb(self.color_paths[idx], sidelength=self.img_sidelength)
@@ -100,12 +103,14 @@ class SceneClassDataset(torch.utils.data.Dataset):
                  max_num_instances=-1,
                  max_observations_per_instance=-1,
                  specific_observation_idcs=None,  # For few-shot case: Can pick specific observations only
-                 samples_per_instance=2):
+                 samples_per_instance=2,
+                 non_symetric_camera_sensor=False):
 
         self.samples_per_instance = samples_per_instance
         self.instance_dirs = sorted([os.path.join(root_dir, instance_name)
                                      for instance_name in os.listdir(root_dir)])
-        
+        self.non_symetric_camera_sensor = non_symetric_camera_sensor
+
         assert (len(self.instance_dirs) != 0), "No objects in the data directory"
 
         if max_num_instances != -1:
@@ -115,7 +120,8 @@ class SceneClassDataset(torch.utils.data.Dataset):
                                                    instance_dir=dir,
                                                    specific_observation_idcs=specific_observation_idcs,
                                                    img_sidelength=img_sidelength,
-                                                   num_images=max_observations_per_instance)
+                                                   num_images=max_observations_per_instance,
+                                                   non_symetric_camera_sensor=self.non_symetric_camera_sensor)
                               for idx, dir in enumerate(self.instance_dirs)]
 
         self.num_per_instance_observations = [len(obj) for obj in self.all_instances]

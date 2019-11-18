@@ -22,6 +22,9 @@ p.add_argument('--max_steps_per_img_sidelength', type=str, default="200000",
 p.add_argument('--batch_size_per_img_sidelength', type=str, default="64",
                help='Training batch size.'
                     'If comma-separated list, will train each image sidelength with respective batch size.')
+p.add_argument('--non_symetric_camera_sensor', default=True,
+               help='Non symetric camera sensor.'
+                    'If sensor is not symetric then in data have to be Fx and Fy instead of one F.')
 
 # Training options
 p.add_argument('--data_root', required=True, help='Path to directory with training data.')
@@ -95,17 +98,18 @@ def train():
     batch_size_per_sidelength = util.parse_comma_separated_integers(opt.batch_size_per_img_sidelength)
     max_steps_per_sidelength = util.parse_comma_separated_integers(opt.max_steps_per_img_sidelength)
 
+    assert (len(img_sidelengths) == len(batch_size_per_sidelength)), \
+        "Different number of image sidelengths passed than batch sizes."
+    assert (len(img_sidelengths) == len(max_steps_per_sidelength)), \
+        "Different number of image sidelengths passed than max steps."
+
     train_dataset = dataio.SceneClassDataset(root_dir=opt.data_root,
                                              max_num_instances=opt.max_num_instances_train,
                                              max_observations_per_instance=opt.max_num_observations_train,
                                              img_sidelength=img_sidelengths[0],
                                              specific_observation_idcs=specific_observation_idcs,
-                                             samples_per_instance=1)
-
-    assert (len(img_sidelengths) == len(batch_size_per_sidelength)), \
-        "Different number of image sidelengths passed than batch sizes."
-    assert (len(img_sidelengths) == len(max_steps_per_sidelength)), \
-        "Different number of image sidelengths passed than max steps."
+                                             samples_per_instance=1,
+                                             non_symetric_camera_sensor=opt.non_symetric_camera_sensor)
 
     if not opt.no_validation:
         assert (opt.val_root is not None), "No validation directory passed."
@@ -114,7 +118,8 @@ def train():
                                                max_num_instances=opt.max_num_instances_val,
                                                max_observations_per_instance=opt.max_num_observations_val,
                                                img_sidelength=int(opt.img_sidelengths),
-                                               samples_per_instance=1)
+                                               samples_per_instance=1,
+                                               non_symetric_camera_sensor=opt.non_symetric_camera_sensor)
         collate_fn = val_dataset.collate_fn
         val_dataloader = DataLoader(val_dataset,
                                     batch_size=2,

@@ -33,6 +33,7 @@ def convert_image(img):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     return img
 
+
 def write_img(img, path):
     cv2.imwrite(path, img.astype(np.uint8))
 
@@ -40,10 +41,16 @@ def write_img(img, path):
 def in_out_to_param_count(in_out_tuples):
     return np.sum([np.prod(in_out) + in_out[-1] for in_out in in_out_tuples])
 
-def parse_intrinsics(filepath, trgt_sidelength=None, invert_y=False):
+
+def parse_intrinsics(filepath, trgt_sidelength=None, invert_y=False, non_symetric_camera_sensor=False):
     # Get camera intrinsics
     with open(filepath, 'r') as file:
-        f, cx, cy, _ = map(float, file.readline().split())
+
+        if non_symetric_camera_sensor:
+            fx, fy, cx, cy = map(float, file.readline().split())
+        else:
+            f, cx, cy, _ = map(float, file.readline().split())
+
         grid_barycenter = torch.Tensor(list(map(float, file.readline().split())))
         scale = float(file.readline())
         height, width = map(float, file.readline().split())
@@ -61,13 +68,19 @@ def parse_intrinsics(filepath, trgt_sidelength=None, invert_y=False):
     if trgt_sidelength is not None:
         cx = cx/width * trgt_sidelength
         cy = cy/height * trgt_sidelength
-        f = trgt_sidelength / height * f
 
-    fx = f
-    if invert_y:
-        fy = -f
-    else:
-        fy = f
+        if non_symetric_camera_sensor:
+            fx = trgt_sidelength / width * fx
+            fy = trgt_sidelength / height * fy
+        else:
+            f = trgt_sidelength / height * f
+
+    if not non_symetric_camera_sensor:
+        fx = f
+        if invert_y:
+            fy = -f
+        else:
+            fy = f
 
     # Build the intrinsic matrices
     full_intrinsic = np.array([[fx, 0., cx, 0.],
@@ -77,10 +90,12 @@ def parse_intrinsics(filepath, trgt_sidelength=None, invert_y=False):
 
     return full_intrinsic, grid_barycenter, scale, world2cam_poses
 
+
 def lin2img(tensor):
     batch_size, num_samples, channels = tensor.shape
     sidelen = np.sqrt(num_samples).astype(int)
     return tensor.permute(0,2,1).view(batch_size, channels, sidelen, sidelen)
+
 
 def num_divisible_by_2(number):
     i = 0
@@ -89,6 +104,7 @@ def num_divisible_by_2(number):
         i += 1
 
     return i
+
 
 def cond_mkdir(path):
     if not os.path.exists(path):
@@ -185,7 +201,6 @@ def show_images(images, titles=None):
             divider = make_axes_locatable(a)
             cax = divider.append_axes("right", size="5%", pad=0.05)
             fig.colorbar(im, cax=cax, orientation='vertical')
-
 
     plt.tight_layout()
 
