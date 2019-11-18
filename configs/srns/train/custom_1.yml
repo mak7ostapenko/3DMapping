@@ -1,8 +1,8 @@
 data_root: dataset/custom/train/ # Path to training dataset.
 val_root: dataset/custom/val/ # Path to  dataset, consisting of the same cars as in the training set, but with novel camera views.
 logging_root: logs/custom/1/
-img_sidelengths: 280
-batch_size_per_img_sidelength: 8 # This is for a GPU with 48 GB of memory. Adapt accordingly for your GPU memory.
+img_sidelengths: 128
+batch_size_per_img_sidelength: 2 # This is for a GPU with 48 GB of memory. Adapt accordingly for your GPU memory.
 max_steps_per_img_sidelength: 352000
 
 
